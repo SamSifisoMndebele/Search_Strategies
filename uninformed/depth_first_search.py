@@ -1,8 +1,8 @@
 # Public module-level state (used by callers to inspect results)
-visited_order = []  # Records node visit order
-found_path = []     # Holds the path to goal when found
+from typing import Tuple
 
-def depth_first_search(graph, start, goal):
+
+def depth_first_search(graph, start, goal) -> Tuple:
     """
     Depth-first backtracking search to find a path from `node` to `goal`.
 
@@ -19,14 +19,13 @@ def depth_first_search(graph, start, goal):
     Returns:
         bool: True if goal found, otherwise False.
     """
-    # Reset the observable state for a clean run
-    visited_order.clear()
-    found_path.clear()
+    visited_order = []  # Records node visit order
+    found_path = []  # Holds the path to goal when found
 
-    return _backtrack(graph,  [], start,goal)
+    return _backtrack(graph,  [], start,goal, visited_order, found_path)
 
 
-def _backtrack(graph, path, node, goal):
+def _backtrack(graph, path, node, goal, visited_order, found_path):
     # Record visit
     visited_order.append(node)
     path.append(node)
@@ -36,12 +35,12 @@ def _backtrack(graph, path, node, goal):
         # Mutate the existing list so external references see the update
         found_path.clear()
         found_path.extend(path)
-        return True  # Goal found
+        return visited_order, found_path  # Goal found
 
     # Explore neighbors safely (handle missing node with a default empty list)
     for neighbor in graph[node]:
-        if _backtrack(graph, path, neighbor, goal):
-            return True  # Stop once the goal is found
+        if _backtrack(graph, path, neighbor, goal, visited_order, found_path) != (None, None):
+            return visited_order, found_path  # Stop once the goal is found
 
     path.pop()  # Backtrack
-    return False
+    return None, None
