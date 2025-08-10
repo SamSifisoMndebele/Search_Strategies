@@ -1,5 +1,5 @@
-from uninformed.breadth_first_search import breadth_first_search, visited_order as bfs_visited_order, found_path as bfs_found_path
-from uninformed.depth_first_search import depth_first_search, visited_order as dfs_visited_order, found_path as dfs_found_path
+from uninformed.breadth_first_search import breadth_first_search
+from uninformed.depth_first_search import depth_first_search
 
 graph = {
     0: [4, 1, 16],
@@ -24,17 +24,19 @@ graph = {
 
 if __name__ == '__main__':
     print("Depth First Search")
-    if depth_first_search(graph, 0, goal=15):
-        print("Visited order:", dfs_visited_order)
-        print("Path to goal:", dfs_found_path)
+    visited_order, found_path = depth_first_search(graph, 0, goal=15)
+    if visited_order is not None and found_path is not None:
+        print("Visited order:", visited_order)
+        print("Path to goal:", found_path)
     else:
         print("Goal not found")
     print()
 
     print("Breadth First Search")
-    if breadth_first_search(graph, 0, goal=15):
-        print("Visited order:", bfs_visited_order)
-        print("Path to goal:", bfs_found_path)
+    visited_order, found_path = breadth_first_search(graph, 0, goal=15)
+    if visited_order is not None and found_path is not None:
+        print("Visited order:", visited_order)
+        print("Path to goal:", found_path)
     else:
         print("Goal not found")
     print()
