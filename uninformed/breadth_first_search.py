@@ -1,17 +1,13 @@
-from typing import Optional
+from typing import Optional, Tuple
 from collections import deque
 
-# Public module-level state (used by callers to inspect results)
-visited_order = []  # Records node visit (dequeue) order
-found_path = []     # Holds the path to goal when found
-
-def breadth_first_search(graph, start, goal):
+def breadth_first_search(graph, start, goal) -> Tuple:
     """
-    Breadth-first search to find the shortest path from `start` to `goal`.
+    Perform Breadth-First Search (BFS) to find the shortest path from `start` to `goal`.
 
-    - Updates `visited_order` with the order nodes are dequeued (visited).
-    - When a goal is found, updates `found_path` with the shortest path.
-    - Returns True if the goal is found, else False.
+    - Returns a tuple (visited_order, found_path) if the goal is found, otherwise (None, None).
+        - visited_order: list of visited nodes in order of visit
+        - found_path: list of nodes to reach the goal
 
     Args:
         graph: Adjacency list mapping a node -> list of neighbors.
@@ -19,11 +15,10 @@ def breadth_first_search(graph, start, goal):
         goal: Target node to find.
 
     Returns:
-        bool: True if goal found, otherwise False.
+        (visited_order, found_path) if found, else (None, None).
     """
-    # Reset the observable state for a clean run
-    visited_order.clear()
-    found_path.clear()
+    visited_order = []  # Records node visit (dequeue) order
+    found_path = []     # Holds the path to goal when found
 
     q = deque([start])
     visited = {start}
@@ -44,7 +39,7 @@ def breadth_first_search(graph, start, goal):
 
             # Mutate in place so external references see the update
             found_path.extend(path)
-            return True
+            return visited_order, found_path
 
         for neighbor in graph[node]:
             if neighbor not in visited:
@@ -52,4 +47,4 @@ def breadth_first_search(graph, start, goal):
                 parent[neighbor] = node
                 q.append(neighbor)
 
-    return False
+    return None, None
