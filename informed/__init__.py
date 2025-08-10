@@ -25,10 +25,11 @@ graph = {
 def heuristic(n: int, goal: int) -> float:
     return abs(n - goal)
 
-print("Best First Search")
-if best_first_search(graph, 0, 15, heuristic):
-    print("Visited order:", visited_order)
-    print("Path to goal:", found_path)
-else:
-    print("Goal not found")
-print()
+if __name__ == '__main__':
+    print("Best First Search")
+    if best_first_search(graph, 0, 15, heuristic):
+        print("Visited order:", visited_order)
+        print("Path to goal:", found_path)
+    else:
+        print("Goal not found")
+    print()

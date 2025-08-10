@@ -22,19 +22,19 @@ graph = {
     3: []
 }
 
-# Run Backtracking / DFS to find 15
-print("Depth First Search")
-if depth_first_search(graph, 0, goal = 15):
-    print("Visited order:", dfs_visited_order)
-    print("Path to goal:", dfs_found_path)
-else:
-    print("Goal not found")
-print()
+if __name__ == '__main__':
+    print("Depth First Search")
+    if depth_first_search(graph, 0, goal=15):
+        print("Visited order:", dfs_visited_order)
+        print("Path to goal:", dfs_found_path)
+    else:
+        print("Goal not found")
+    print()
 
-print("Breadth First Search")
-if breadth_first_search(graph, 0, goal = 15):
-    print("Visited order:", bfs_visited_order)
-    print("Path to goal:", bfs_found_path)
-else:
-    print("Goal not found")
-print()
+    print("Breadth First Search")
+    if breadth_first_search(graph, 0, goal=15):
+        print("Visited order:", bfs_visited_order)
+        print("Path to goal:", bfs_found_path)
+    else:
+        print("Goal not found")
+    print()
