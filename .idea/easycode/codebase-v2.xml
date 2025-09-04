@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/adversarial/__init__.py;D:/PycharmProjects/Search Strategies/adversarial/alpha_beta_pruning.py;D:/PycharmProjects/Search Strategies/graphs/__init__.py;D:/PycharmProjects/Search Strategies/informed/__init__.py;D:/PycharmProjects/Search Strategies/informed/best_first_search.py;D:/PycharmProjects/Search Strategies/uninformed/breadth_first_search.py;D:/PycharmProjects/Search Strategies/uninformed/depth_first_search.py;D:/PycharmProjects/Search Strategies/uninformed/uniform_cost_search.py;D:/PycharmProjects/Search Strategies/README.md" />
+  </component>
+</project>
