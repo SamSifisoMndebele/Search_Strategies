@@ -65,17 +65,19 @@ def depth_first_search(graph, start, goal):
                 DE.append(CS)
                 SL.pop()
                 NSL.pop()
-                CS = NSL[-1]
-            SL.append(CS)
+                if NSL: CS = NSL[-1]
+            if NSL: SL.append(CS)
         else:
             NSL.extend(children[::-1])
             CS = NSL[-1]
             SL.append(CS)
 
-    log.append([iteration + 1, CS, states(SL), states(NSL), states(DE)])
+    log.append([iteration + 1, '', states(SL), states(NSL), states(DE)])
     print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
+    print("Result:", "FAIL")
     return "FAIL"
 
 
 if __name__ == '__main__':
-    result = depth_first_search(graph1, 'A', 'P')
+    result = depth_first_search(graph1, 'A', ''
+                                             'P')
