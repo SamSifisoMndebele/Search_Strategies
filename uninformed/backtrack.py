@@ -46,7 +46,7 @@ def backtrack(graph, start, goal):
     iteration = 0
     log = []
     
-    def states(s): return "[" + "".join(s[::-1]) + "]"
+    def states(s): return "[" + "".join(s) + "]"
 
     while NSL:
         log.append([iteration, CS, states(SL), states(NSL), states(DE)])
@@ -54,7 +54,7 @@ def backtrack(graph, start, goal):
 
         if CS == goal:
             print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
-            print("Result:", " -> ".join(SL))
+            print("Result:", " -> ".join(SL[::-1]))
             return SL
 
         # Children of CS excluding nodes already on DE, SL, and NSL
@@ -64,16 +64,16 @@ def backtrack(graph, start, goal):
                 children.append(child)
 
         if not children:
-            while SL and CS == SL[-1]:
-                DE.append(CS)
-                SL.pop()
-                NSL.pop()
-                if NSL: CS = NSL[-1]
-            if NSL: SL.append(CS)
+            while SL and CS == SL[0]:
+                DE.insert(0, CS)
+                SL.pop(0)
+                NSL.pop(0)
+                if NSL: CS = NSL[0]
+            if NSL: SL.insert(0, CS)
         else:
-            NSL.extend(children[::-1])
-            CS = NSL[-1]
-            SL.append(CS)
+            NSL = children + NSL
+            CS = NSL[0]
+            SL.insert(0, CS)
 
     log.append([iteration + 1, '', states(SL), states(NSL), states(DE)])
     print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
