@@ -27,13 +27,13 @@ def depth_first_search(graph, start, goal):
     Example:
         >>> graph = {"A": ["B", "C"], "B": ["D"], "C": [], "D": []}
         >>> depth_first_search(graph, "A", "D")
-        +--------+------+------+-------+------+
-        | Iter   | CS   | SL   | NSL   | DE   |
-        +--------+------+------+-------+------+
-        | 1      | A    | [A]  | [A]   | []   |
-        | 2      | B    | [BA] | [AB]  | []   |
-        | 3      | D    | [DBA]| [ABD] | []   |
-        +--------+------+------+-------+------+
+        +--------+------+------+--------+------+
+        | Iter   | CS   | SL   | NSL    | DE   |
+        +--------+------+------+--------+------+
+        | 0      | A    | [A]  | [A]    | []   |
+        | 1      | B    | [BA] | [BCA]  | []   |
+        | 2      | D    | [DBA]| [DBCA] | []   |
+        +--------+------+------+--------+------+
         '[D B A]'
     """
     SL = [start]
@@ -43,35 +43,34 @@ def depth_first_search(graph, start, goal):
     iteration = 0
     log = []
     
-    def states(s): return "[" + "".join(s) + "]"
+    def states(s): return "[" + "".join(s[::-1]) + "]"
 
     while NSL:
-        iteration += 1
         log.append([iteration, CS, states(SL), states(NSL), states(DE)])
+        iteration += 1
 
         if CS == goal:
             print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
-            return states(SL)
+            print("Result:", " -> ".join(SL))
+            return SL
 
-        children = [child for child in graph.get(CS, [])
-                    if child not in SL and child not in NSL and child not in DE]
+        # Children of CS excluding nodes already on DE, SL, and NSL
+        children = []
+        for child in graph.get(CS, []):
+            if child not in SL and child not in NSL and child not in DE:
+                children.append(child)
 
         if not children:
-            while SL:
+            while SL and CS == SL[-1]:
                 DE.append(CS)
-                SL.pop(0)
-                NSL.pop(0)
-                if NSL:
-                    CS = NSL[0]
-                    break
-                else:
-                    log.append([iteration + 1, CS, states(SL), states(NSL), states(DE)])
-                    print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
-                    return "FAIL"
+                SL.pop()
+                NSL.pop()
+                CS = NSL[-1]
+            SL.append(CS)
         else:
-            NSL.extend(children)
-            CS = children[0]
-            SL.insert(0, CS)
+            NSL.extend(children[::-1])
+            CS = NSL[-1]
+            SL.append(CS)
 
     log.append([iteration + 1, CS, states(SL), states(NSL), states(DE)])
     print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
@@ -79,5 +78,4 @@ def depth_first_search(graph, start, goal):
 
 
 if __name__ == '__main__':
-    result = depth_first_search(graph1, 'A', 'G')
-    print("\nResult:", result)
+    result = depth_first_search(graph1, 'A', 'P')
