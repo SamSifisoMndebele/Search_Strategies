@@ -1,5 +1,8 @@
 import heapq
 from typing import List, Callable, Optional, Tuple
+from tabulate import tabulate
+
+from graphs import graph2
 
 # Public module-level state (used by callers to inspect results)
 visited_order = []  # Records node expansion order
@@ -66,3 +69,58 @@ def best_first_search(graph, start, goal, heuristic: Callable):
                 heapq.heappush(pq, (heuristic(neighbor, goal), counter, neighbor))
 
     return False
+
+
+def bfs(graph, start, goal, heuristic):
+    open_l = [(start, heuristic(start))]
+    closed_list = []
+    came_from = {start: None}
+    cost_so_far = {start: 0}
+    X = None
+    iteration = 0
+    log = []
+
+    while open_l:
+        log.append([
+            iteration, X,
+            "[" + ",".join(f"{node}{h}" for node, h in open_l) + "]",
+            "[" + ",".join(closed_list) + "]"
+        ])
+        iteration += 1
+        X, _ = heapq.heappop(open_l)
+
+
+        if X == goal:
+            # Reconstruct path
+            path = []
+            while X:
+                path.append(X)
+                X = came_from[X]
+            path.reverse()
+            print(tabulate(log, headers=["Iter", "X", "Open", "Closed"], tablefmt="grid"))
+            return "[" + "".join(path) + "]"
+
+        closed_list.append(X)
+
+        for neighbor in graph.get(X, []):
+            new_cost = cost_so_far[X] + 1  # assuming uniform cost
+            if neighbor not in cost_so_far or new_cost < cost_so_far[neighbor]:
+                cost_so_far[neighbor] = new_cost
+                came_from[neighbor] = X
+                heapq.heappush(open_l, (neighbor, heuristic(neighbor)))
+
+    log.append([iteration + 1, X, "[" + "".join(node for node, _ in open_l) + "]", "[" + "".join(closed_list) + "]"])
+    print(tabulate(log, headers=["Iter", "X", "Open", "Closed"], tablefmt="grid"))
+    return "FAIL"
+
+
+if __name__ == '__main__':
+    heuristic = lambda node: {
+        'A': 5,
+        'B': 4, 'C': 4, 'D': 6,
+        'E': 5, 'F': 5, 'G': 4, 'H': 3, 'I': 2, 'J': 5,
+        'K': 7, 'L': 8, 'M': 1, 'N': 3, 'O': 2, 'P': 3,
+        'Q': 7, 'R': 5, 'S': 9, 'T': 7,
+        'U': 10
+    }.get(node, float('inf'))
+    result = bfs(graph2, 'A', 'P', heuristic)
