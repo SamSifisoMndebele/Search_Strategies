@@ -3,7 +3,7 @@ from tabulate import tabulate
 from graphs import graph1, graph2
 
 
-def backtrack(graph, start, goal):
+def backtrack(graph, goal, start = None):
     """
     Perform Depth-First Search (DFS) on a graph while logging each iteration.
 
@@ -17,8 +17,8 @@ def backtrack(graph, start, goal):
     Args:
         graph (dict): Adjacency list representation of the graph.
                       Example: {"A": ["B", "C"], "B": ["D"], "C": []}
-        start (str): The starting node.
         goal (str): The target node to search for.
+        start (str): The starting node.
 
     Returns:
         str: A string representation of the path found (`[nodes...]`)
@@ -39,6 +39,9 @@ def backtrack(graph, start, goal):
         Result: A -> B -> D
         ['A', 'B', 'D']
     """
+    if not graph.keys(): return "FAIL"
+    if not start: start = list(graph.keys())[0]
+
     SL = [start]
     NSL = [start]
     DE = []
@@ -54,7 +57,7 @@ def backtrack(graph, start, goal):
 
         if CS == goal:
             print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
-            print("Result:", " -> ".join(SL[::-1]))
+            print("Path:", " -> ".join(SL[::-1]))
             return SL
 
         # Children of CS excluding nodes already on DE, SL, and NSL
@@ -77,9 +80,9 @@ def backtrack(graph, start, goal):
 
     log.append([iteration + 1, '', states(SL), states(NSL), states(DE)])
     print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
-    print("Result:", "FAIL")
     return "FAIL"
 
 
 if __name__ == '__main__':
-    result = backtrack(graph2, 'A', 'G')
+    result = backtrack(graph2, 'D')
+    print("Result:", result)
