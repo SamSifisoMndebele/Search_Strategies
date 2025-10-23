@@ -78,11 +78,11 @@ def backtrack(graph, goal, start = None):
             CS = NSL[0]
             SL.insert(0, CS)
 
-    log.append([iteration + 1, '', states(SL), states(NSL), states(DE)])
+    log.append([iteration, '', states(SL), states(NSL), states(DE)])
     print(tabulate(log, headers=["Iter", "CS", "SL", "NSL", "DE"], tablefmt="grid"))
     return "FAIL"
 
 
 if __name__ == '__main__':
-    result = backtrack(graph2, 'D')
+    result = backtrack(graph2, 'Q')
     print("Result:", result)
