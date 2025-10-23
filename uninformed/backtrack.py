@@ -1,6 +1,6 @@
 from tabulate import tabulate
 
-from graphs import graph1, graph2
+from graphs import graph2
 
 
 def backtrack(graph, goal, start = None):
