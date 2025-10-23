@@ -8,25 +8,26 @@ def backtrack(graph, goal, start = None):
     Perform Depth-First Search (DFS) on a graph while logging each iteration.
 
     This implementation is a variation of DFS that keeps track of:
-    - SL (Search List): The current exploration path (stack-like behavior).
-    - NSL (Nodes to be Searched List): A queue of nodes to be explored next.
-    - DE (Dead Ends): Nodes that were explored but found no children (backtracking).
+    - SL (Search List): Tracks the current path from start to goal. Used for backtracking.
+    - NSL (Next Search List): Queue of states to explore next. Maintains a search frontier.
+    - DE (Dead Ends): States that have been fully explored and found unproductive.
     - CS (Current State): The node being processed at the current step.
-    - Iteration logs: Each iteration is recorded and displayed in a table.
+    - Iteration: Each iteration is recorded and displayed in a table.
 
     Args:
         graph (dict): Adjacency list representation of the graph.
-                      Example: {"A": ["B", "C"], "B": ["D"], "C": []}
+                      Example: {"A": ["B", "C"], "B": ["D"]}
         goal (str): The target node to search for.
         start (str): The starting node.
 
     Returns:
-        str: A string representation of the path found (`[nodes...]`)
-             or "FAIL" if the goal cannot be reached.
+        str|list: A list representation of the path found (`[nodes...]`)
+             or string "FAIL" if the goal cannot be reached.
 
     Example:
-        >>> graph = {"A": ["B", "C"], "B": ["D"], "C": [], "D": []}
-        >>> backtrack(graph, "A", "D")
+        >>> graph = {"A": ["B", "C"], "B": ["D"]}
+        >>> result = backtrack(graph, "D", "A")
+        >>> print("Result:", result)
         +--------+------+-------+--------+------+
         |   Iter | CS   | SL    | NSL    | DE   |
         +========+======+=======+========+======+
@@ -36,8 +37,8 @@ def backtrack(graph, goal, start = None):
         +--------+------+-------+--------+------+
         |      2 | D    | [DBA] | [DBCA] | []   |
         +--------+------+-------+--------+------+
-        Result: A -> B -> D
-        ['A', 'B', 'D']
+        Path: A -> B -> D
+        Result: ['D', 'B', 'A']
     """
     if not graph.keys(): return "FAIL"
     if not start: start = list(graph.keys())[0]
