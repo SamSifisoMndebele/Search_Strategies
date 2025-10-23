@@ -12,10 +12,10 @@ These don’t use any domain-specific knowledge.
 
 
 ## 1. **Breadth-First Search (BFS)**
-- Explores all nodes at current depth before going deeper
+- Explores all nodes at the current depth before going deeper
 - Uses a **queue (FIFO)** structure
 - **Complete** and **optimal** for unweighted graphs
-- Time & space: \(O(b^d)\), where \(b\) = branching factor, \(d\) = depth of solution
+- Time & space: \(O(b^d)\), where \(b\) = branching factor, \(d\) = depth of a solution
 - **Best for**: Shortest path in simple graphs
 
 ## 2. **Depth-First Search (DFS)**
@@ -23,10 +23,10 @@ These don’t use any domain-specific knowledge.
 - Uses a **stack (LIFO)** or recursion
 - **Not guaranteed** to be complete or optimal
 - Time: \(O(b^m)\), Space: \(O(m)\), where \(m\) = max depth
-- **Best for**: Memory-constrained problems or when solution is deep
+- **Best for**: Memory-constrained problems or when the solution is deep
 
 ## 3. **Uniform Cost Search (UCS)**
-- Expands node with **lowest cumulative path cost**
+- Expands node with **the lowest cumulative path cost**
 - Uses a **priority queue** based on path cost
 - **Complete** and **optimal** for graphs with positive weights
 - Time: Depends on cost granularity; can be exponential
@@ -35,7 +35,7 @@ These don’t use any domain-specific knowledge.
 ## 4. **Depth-Limited Search**
 - DFS with a **maximum depth cutoff**
 - Avoids infinite loops in cyclic graphs
-- **Incomplete** if solution is beyond depth limit
+- **Incomplete** if a solution is beyond the depth limit
 - **Best for**: Large or infinite search spaces
 
 ## 5. **Iterative Deepening DFS**
@@ -67,7 +67,7 @@ These use heuristics to guide the search.
 | **Simulated Annealing**         | Allows occasional bad moves to escape local optima | Good for optimization problems         |
 
 ## 1. **Greedy Best-First Search**
-- Chooses node with **lowest heuristic value (h(n))**
+- Chooses the node with **the lowest heuristic value (h(n))**
 - Ignores path cost (g(n))
 - **Fast**, but **not optimal or complete**
 - Can get stuck in loops or dead ends
@@ -83,17 +83,17 @@ These use heuristics to guide the search.
 ## 3. **Recursive Best-First Search (RBFS)**
 - A memory-efficient version of A*
 - Uses recursion and backtracking
-- Keeps track of best alternative paths
+- Keeps track of the best alternative paths
 - **Best for**: Large search spaces with limited memory
 
 ## 4. **Memory-Bounded A\*** (e.g., SMA*)
 - A* variant that limits memory usage
-- Discards least promising nodes when memory is full
+- Discards the least promising nodes when memory is full
 - Tries to recover discarded paths if needed
 - **Best for**: Real-world problems with memory constraints
 
 ## 5. **Hill Climbing**
-- Always moves to neighbor with best heuristic value
+- Always moves to a neighbor with the best heuristic value
 - **Greedy** and **local** — no backtracking
 - Can get stuck in:
   - **Local maxima**
@@ -104,14 +104,14 @@ These use heuristics to guide the search.
 ## 6. **Simulated Annealing**
 - Inspired by metallurgy (cooling metals slowly)
 - Occasionally accepts worse moves to escape local maxima
-- Probability of bad move decreases over time
+- The probability of a bad move decreases over time
 - **Best for**: Complex optimization with many local optima
 
 ---
 
 # 🎮 Adversarial Search (for Games)
 - **Minimax**: Assumes opponent plays optimally
-- **Alpha-Beta Pruning**: Cuts off branches that won’t affect outcome
+- **Alpha-Beta Pruning**: Cuts off branches that won’t affect an outcome
 - **Expectimax**: Handles uncertainty (e.g., dice rolls)
 
 ---
