@@ -21,6 +21,10 @@ graph = {
     3: []
 }
 
+def get_cost(costs, u, v):
+    return costs.get((u, v), float('inf'))
+
+
 # Heuristic: assumes nodes are integers; closer numbers are "closer" to the goal
 def heuristic(n: int, goal: int) -> float:
     return abs(n - goal)

@@ -8,7 +8,7 @@ from graphs import graph2
 visited_order = []  # Records node expansion order
 found_path = []     # Holds the path to goal when found
 
-def best_first_search(graph, start, goal, heuristic: Callable):
+def best_first_search(graph, goal, heuristic: Callable, start = None):
     """
     Greedy Best-First Search (GBFS).
 
@@ -71,7 +71,7 @@ def best_first_search(graph, start, goal, heuristic: Callable):
     return False
 
 
-def bfs(graph, start, goal, heuristic):
+def bfs(graph, goal, heuristic, start):
     open_l = [(start, heuristic(start))]
     closed_list = []
     came_from = {start: None}
