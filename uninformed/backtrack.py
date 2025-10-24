@@ -23,22 +23,6 @@ def backtrack(graph, goal, start = None):
     Returns:
         str|list: A list representation of the path found (`[nodes...]`)
              or string "FAIL" if the goal cannot be reached.
-
-    Example:
-        >>> graph = {"A": ["B", "C"], "B": ["D"]}
-        >>> result = backtrack(graph, "D", "A")
-        >>> print("Result:", result)
-        +--------+------+-------+--------+------+
-        |   Iter | CS   | SL    | NSL    | DE   |
-        +========+======+=======+========+======+
-        |      0 | A    | [A]   | [A]    | []   |
-        +--------+------+-------+--------+------+
-        |      1 | B    | [BA]  | [BCA]  | []   |
-        +--------+------+-------+--------+------+
-        |      2 | D    | [DBA] | [DBCA] | []   |
-        +--------+------+-------+--------+------+
-        Path: A -> B -> D
-        Result: ['D', 'B', 'A']
     """
     if not graph.keys(): return "FAIL"
     if not start: start = list(graph.keys())[0]

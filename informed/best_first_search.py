@@ -3,6 +3,7 @@ from typing import List, Callable, Optional, Tuple
 from tabulate import tabulate
 
 from graphs import graph2
+from graphs.heuristics import heuristic2
 
 # Public module-level state (used by callers to inspect results)
 visited_order = []  # Records node expansion order
@@ -72,6 +73,7 @@ def best_first_search(graph, goal, heuristic: Callable, start = None):
 
 
 def bfs(graph, goal, heuristic, start):
+    heuristic = lambda node: heuristic.get(node, float('inf'))
     open_l = [(start, heuristic(start))]
     closed_list = []
     came_from = {start: None}
@@ -115,12 +117,4 @@ def bfs(graph, goal, heuristic, start):
 
 
 if __name__ == '__main__':
-    heuristic = lambda node: {
-        'A': 5,
-        'B': 4, 'C': 4, 'D': 6,
-        'E': 5, 'F': 5, 'G': 4, 'H': 3, 'I': 2, 'J': 5,
-        'K': 7, 'L': 8, 'M': 1, 'N': 3, 'O': 2, 'P': 3,
-        'Q': 7, 'R': 5, 'S': 9, 'T': 7,
-        'U': 10
-    }.get(node, float('inf'))
-    result = bfs(graph2, 'A', 'P', heuristic)
+    result = bfs(graph2, 'A', 'P', heuristic2)
