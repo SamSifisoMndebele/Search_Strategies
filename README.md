@@ -1,43 +1,50 @@
 # 🔍 **Uninformed Search Strategies**
 These don’t use any domain-specific knowledge.
 
-| # | **Strategy**                | **Key Traits**                                 | **Use Case**                        |
-|---|-----------------------------|------------------------------------------------|-------------------------------------|
-| 1 | **Breadth-First Search**    | Explores all nodes at current depth first      | Shortest path in unweighted graphs  |
-| 2 | **Depth-First Search**      | Explores one branch deeply before backtracking | Memory-efficient, but may get stuck |
-| 3 | **Depth-Limited Search**    | DFS with a depth cutoff                        | Avoids infinite paths               |
-| 4 | **Iterative Deepening DFS** | Combines DFS and BFS benefits                  | Optimal and memory-efficient        |
-| 5 | **Bidirectional Search**    | Searches from start and goal simultaneously    | Fast for symmetric problems         |
+| # | **Strategy**                | **Key Traits**                                                   | **Use Case**                        |
+|---|-----------------------------|------------------------------------------------------------------|-------------------------------------|
+| 1 | **Backtracking**            | Builds solutions incrementally, abandons path if it's not viable | Constraint satisfaction problems    |
+| 2 | **Breadth-First Search**    | Explores all nodes at current depth first                        | Shortest path in unweighted graphs  |
+| 3 | **Depth-First Search**      | Explores one branch deeply before backtracking                   | Memory-efficient, but may get stuck |
+| 4 | **Depth-Limited Search**    | DFS with a depth cutoff                                          | Avoids infinite paths               |
+| 5 | **Iterative Deepening DFS** | Combines DFS and BFS benefits                                    | Optimal and memory-efficient        |
+| 6 | **Bidirectional Search**    | Searches from start and goal simultaneously                      | Fast for symmetric problems         |
 
 
-## 1. **Breadth-First Search (BFS)**
+## 1. **Backtracking**
+- Builds solutions incrementally
+- Abandons a path as soon as it determines it's not viable
+- Uses recursion
+- **Best for**: Constraint satisfaction problems (e.g., Sudoku, N-queens)
+
+## 2. **Breadth-First Search (BFS)**
 - Explores all nodes at the current depth before going deeper
 - Uses a **queue (FIFO)** structure
 - **Complete** and **optimal** for unweighted graphs
 - Time & space: \(O(b^d)\), where \(b\) = branching factor, \(d\) = depth of a solution
 - **Best for**: Shortest path in simple graphs
 
-## 2. **Depth-First Search (DFS)**
+## 3. **Depth-First Search (DFS)**
 - Explores one branch deeply before backtracking
 - Uses a **stack (LIFO)** or recursion
 - **Not guaranteed** to be complete or optimal
 - Time: \(O(b^m)\), Space: \(O(m)\), where \(m\) = max depth
 - **Best for**: Memory-constrained problems or when the solution is deep
 
-## 3. **Depth-Limited Search**
+## 4. **Depth-Limited Search**
 - DFS with a **maximum depth cutoff**
 - Avoids infinite loops in cyclic graphs
 - **Incomplete** if a solution is beyond the depth limit
 - **Best for**: Large or infinite search spaces
 
-## 4. **Iterative Deepening DFS**
+## 5. **Iterative Deepening DFS**
 - Combines DFS’s low memory with BFS’s completeness
 - Repeatedly runs DFS with increasing depth limits
 - **Complete** and **optimal** for uniform cost
 - Time: Slightly more than BFS, but space-efficient
 - **Best for**: Large trees where memory is limited
 
-## 5. **Bidirectional Search**
+## 6. **Bidirectional Search**
 - Runs two simultaneous searches: from start and goal
 - Stops when the two meet
 - Requires the ability to reverse actions
