@@ -1,6 +1,6 @@
 from tabulate import tabulate
 
-from graphs import graph2
+from graphs import graph2, graph6
 
 
 def backtrack(graph, goal, start = None):
@@ -85,5 +85,5 @@ def backtrack(graph, goal, start = None):
 
 
 if __name__ == '__main__':
-    result = backtrack(graph2, 'Q')
+    result = backtrack(graph6, 'P')
     print("Result:", result)
