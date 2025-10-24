@@ -17,8 +17,8 @@ def backtrack(graph, goal, start = None):
     Args:
         graph (dict): Adjacency list representation of the graph.
                       Example: {"A": ["B", "C"], "B": ["D"]}
-        goal (str): The target node to search for.
-        start (str): The starting node.
+        goal: The target node to search for.
+        start: The start node. If not provided, the first node in the graph is used.
 
     Returns:
         str|list: A list representation of the path found (`[nodes...]`)

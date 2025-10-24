@@ -1,53 +1,23 @@
-from collections import deque
-from typing import Tuple
-
 from tabulate import tabulate
 
 from graphs import graph2
 
 
-def breadth_first_search(graph, start, goal):
+def breadth_first_search(graph, goal, start = None):
     """
-    Perform Breadth-First Search (BFS) to find the shortest path from `start` to `goal`.
-
-    - Returns a tuple (visited, path) if the goal is found, otherwise (None, None).
-        - visited: list of visited nodes in order of visit
-        - path: list of nodes to reach the goal
+    Performs a breadth-first search on a graph to find a path from a start node to a goal node.
 
     Args:
-        graph: Adjacency list mapping a node -> list of neighbors.
-        start: Starting node.
-        goal: Target node to find.
+        graph (dict): The graph to search, represented as an adjacency list.
+        goal: The goal node.
+        start: The start node. If not provided, the first node in the graph is used.
 
     Returns:
-        Tuple:
-            - visited: A list of nodes in the order they were visited.
-            - path: The path from `start` to `goal` (if found), otherwise an empty list.
+        tuple: A tuple containing the status ("SUCCESS" or "FAIL") and the path from the start to the goal node as a list. If the goal is not found, the path is None.
     """
-    visited = []  # Records node visit (dequeue) order
-    path = []     # Holds the path to goal when found
-
-    q = deque([(start, [start])])  # Store (node, current_path)
-    visited_set = {start}
-
-    while q:
-        node, current_path = q.popleft()
-        visited.append(node)
-
-        if node == goal:
-            # Mutate in place so external references see the update
-            path.extend(current_path)
-            return visited, path
-
-        for neighbor in graph[node]:
-            if neighbor not in visited_set:
-                visited_set.add(neighbor)
-                q.append((neighbor, current_path + [neighbor]))
-
-    return visited, None
-
-
-def bfs(graph, start, goal):
+    if not graph.keys(): return "FAIL"
+    if not start: start = list(graph.keys())[0]
+    
     open_list = [start] # queue
     closed_list = []
     X = None
@@ -77,9 +47,11 @@ def bfs(graph, start, goal):
 
     log.append([iteration + 1, X, states(open_list), states(closed_list)])
     print(tabulate(log, headers=["Iter", "X", "Open", "Closed"], tablefmt="grid"))
-    print("Results:", status if status == "FAIL" else " -> ".join(closed_list))
+    if status == 'SUCCESS':
+        print("Path:", " -> ".join(closed_list))
     return status, None if status == "FAIL" else closed_list
 
 
 if __name__ == '__main__':
-    result = bfs(graph2, 'A', 'G')
+    status, _ = breadth_first_search(graph2, 'G')
+    print("Result:", status)
