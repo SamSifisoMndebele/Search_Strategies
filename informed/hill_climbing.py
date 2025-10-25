@@ -1,5 +1,5 @@
 from graphs import graph5
-from graphs.heuristics import heuristic2
+from graphs.heuristics import heuristics2
 
 
 def hill_climbing(graph, goal, heuristic, start=None, allow_sideways=True):
@@ -54,5 +54,5 @@ def hill_climbing(graph, goal, heuristic, start=None, allow_sideways=True):
 
 
 if __name__ == '__main__':
-    result = hill_climbing(graph5, '0', heuristic2)
+    result = hill_climbing(graph5, '0', heuristics2)
     print("Path:", result)

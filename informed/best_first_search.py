@@ -3,7 +3,7 @@ from typing import List, Callable, Optional, Tuple
 from tabulate import tabulate
 
 from graphs import graph2
-from graphs.heuristics import heuristic2
+from graphs.heuristics import heuristics2
 
 # Public module-level state (used by callers to inspect results)
 visited_order = []  # Records node expansion order
@@ -117,4 +117,4 @@ def bfs(graph, goal, heuristic, start):
 
 
 if __name__ == '__main__':
-    result = bfs(graph2, 'A', 'P', heuristic2)
+    result = bfs(graph2, 'A', 'P', heuristics2)
