@@ -1,8 +1,11 @@
+from math import inf
+
 import matplotlib.pyplot as plt
 import networkx as nx
-from math import inf
-from graphs import graph2
-from graphs.heuristics import heuristics2
+
+from graphs.heuristics import heuristics9
+from graphs.path_costs import graph9
+
 
 def get_hierarchy_pos(graph, root, width=1., vert_gap=1.):
     """
@@ -84,7 +87,7 @@ def alpha_beta(graph, heuristics, node, depth, maximizing=True, alpha=-inf, beta
                 for pruned_child in graph[node][graph[node].index(child) + 1:]:
                     if drawing.has_node(pruned_child):
                         drawing.nodes[pruned_child]["color"] = "red"
-                        drawing.nodes[pruned_child]["label"] = f"{pruned_child}\nPRUNED"
+                        drawing.nodes[pruned_child]["label"] = f"{pruned_child}"
                 break
         drawing.nodes[node]["color"] = "#9ecae1"  # blue for internal (max)
         drawing.nodes[node]["label"] = f"{max_value}\nɑ={alpha}\nʙ={beta}"
@@ -101,7 +104,7 @@ def alpha_beta(graph, heuristics, node, depth, maximizing=True, alpha=-inf, beta
                 for pruned_child in graph[node][graph[node].index(child) + 1:]:
                     if drawing.has_node(pruned_child):
                         drawing.nodes[pruned_child]["color"] = "red"
-                        drawing.nodes[pruned_child]["label"] = f"{pruned_child}\nPRUNED"
+                        drawing.nodes[pruned_child]["label"] = f"{pruned_child}"
                 break
         drawing.nodes[node]["color"] = "#9ecae1"  # blue for internal (min)
         drawing.nodes[node]["label"] = f"{min_value}\nɑ={alpha}\nʙ={beta}"
@@ -109,5 +112,5 @@ def alpha_beta(graph, heuristics, node, depth, maximizing=True, alpha=-inf, beta
 
 
 if __name__ == '__main__':
-    value = alpha_beta(graph2, heuristics2, 'A', 4)
+    value = alpha_beta(graph9, heuristics9, 'A', 4)
     print("Optimal Value:", value)
