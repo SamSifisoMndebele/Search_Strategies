@@ -87,7 +87,7 @@ def alpha_beta(graph, heuristics, node, depth, maximizing=True, alpha=-inf, beta
                         drawing.nodes[pruned_child]["label"] = f"{pruned_child}\nPRUNED"
                 break
         drawing.nodes[node]["color"] = "#9ecae1"  # blue for internal (max)
-        drawing.nodes[node]["label"] = f"{node}\nMAX={max_value:.1f}"
+        drawing.nodes[node]["label"] = f"{max_value}\nɑ={alpha}\nʙ={beta}"
         return max_value
 
     else:   # MIN node
@@ -104,10 +104,10 @@ def alpha_beta(graph, heuristics, node, depth, maximizing=True, alpha=-inf, beta
                         drawing.nodes[pruned_child]["label"] = f"{pruned_child}\nPRUNED"
                 break
         drawing.nodes[node]["color"] = "#9ecae1"  # blue for internal (min)
-        drawing.nodes[node]["label"] = f"{node}\nMIN={min_value:.1f}"
+        drawing.nodes[node]["label"] = f"{min_value}\nɑ={alpha}\nʙ={beta}"
         return min_value
 
 
 if __name__ == '__main__':
-    value = alpha_beta(graph2, heuristics2, 'A', 3)
+    value = alpha_beta(graph2, heuristics2, 'A', 4)
     print("Optimal Value:", value)
